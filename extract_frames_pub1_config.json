@@ -1,0 +1,6 @@
+{
+    "directory": "public",
+    "labels":  ["videos"],
+    "destination": "public_test"
+}
+  

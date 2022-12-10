@@ -1,0 +1,5 @@
+{
+    "directory": "videos",
+    "labels":  ["real", "fake"],
+    "destination": "train/frames"
+}
