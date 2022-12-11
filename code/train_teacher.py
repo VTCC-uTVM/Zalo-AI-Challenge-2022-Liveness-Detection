@@ -66,10 +66,7 @@ import gc
 import torch.nn.utils.prune as prune
 from timm.utils import get_state_dict
 
-# os.environ["WANDB_API_KEY"] = "local-d7ee41eb06289d492bda7549735da087d5b4caf3"
 weights_path = [None, None, None, None, None]
-# mlflow.set_tracking_uri("http://0.0.0.0:5000")
-# experiment_id = mlflow.create_experiment("Nude classifier 5")
 
 default_configs = {}
 
