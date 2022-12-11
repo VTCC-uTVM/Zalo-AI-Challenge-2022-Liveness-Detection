@@ -152,44 +152,6 @@ def eval(val_loader, model, criterion, device, n_eval, fold, epoch, is_ema, defa
         print("confusion matrix: ", cm)
         print("thresh confusion matrix: ", cm_thresh)
         print("ROC AUC: ", roc_auc)
-        # if acc >= 0.95:
-        #     image_paths = []
-        #     labels = []
-        #     for i in range(predictions.shape[0]):
-        #         if predictions[i] != ground_truths[i]:
-        #             old_folder_name = os.path.basename(img_path_list[i])
-        #             new_folder_path = os.path.join("false_predict", str(fold))
-        #             os.makedirs(new_folder_path, exist_ok=True)
-        #             new_folder_path = os.path.join(new_folder_path, str(epoch))
-        #             os.makedirs(new_folder_path, exist_ok=True)
-        #             if is_ema == True:
-        #                 new_folder_path = os.path.join(new_folder_path, "ema")
-        #             else:
-        #                 new_folder_path = os.path.join(new_folder_path, "ori")
-        #             os.makedirs(new_folder_path, exist_ok=True)
-        #             new_folder_path = os.path.join(new_folder_path, str(ground_truths[i]))
-        #             new_folder_path = os.path.join(new_folder_path, old_folder_name)
-        #             os.makedirs(new_folder_path, exist_ok=True)
-        #             old_image_path = os.path.join(img_path_list[i], "frame_0.png")
-        #             new_image_path = os.path.join(new_folder_path, "frame_0.png")
-        #             shutil.copyfile(old_image_path, new_image_path)
-        #             image_paths.append(new_folder_path)
-        #             labels.append(ground_truths[i])
-
-        #     image_paths = np.array(image_paths)
-        #     labels = np.array(labels)
-        #     image_paths = np.expand_dims(image_paths, 1)
-        #     labels = np.expand_dims(labels, 1)
-        #     print(image_paths.shape, labels.shape)
-        #     df = pd.DataFrame(np.concatenate((image_paths, labels), axis=1), columns=["Video_path", "Label"])
-        #     csv_path = os.path.join("false_predict", str(fold))
-        #     csv_path = os.path.join(csv_path, str(epoch))
-        #     if is_ema:
-        #         csv_path = os.path.join(csv_path, "ema")
-        #     else:
-        #         csv_path = os.path.join(csv_path, "ori")
-        #     csv_path = os.path.join(csv_path, 'false_predict.csv')
-        #     df.to_csv(csv_path, index=False)
 
     val_metric['loss'] = running_loss/k
     val_metric['acc'] = acc
@@ -199,51 +161,3 @@ def eval(val_loader, model, criterion, device, n_eval, fold, epoch, is_ema, defa
          
     return val_metric, ground_truths, scores
 
-# def visualize(val_loader, model, criterion, device, fold, epoch):
-#     global counting
-#     running_loss = 0
-#     k = 0
-#     model.eval()
-#     predictions = []
-#     ground_truths = []
-#     scores = []
-#     n_images = 0
-#     n_correct = 0
-#     img_path_list = []
-#     with torch.no_grad():
-#         for batch_idx, (imgs, labels, img_paths) in enumerate(val_loader):   
-#             imgs = imgs.to(device).float()
-#             labels = labels.to(device).long()
-
-#             logits = model(imgs)
-#             loss = criterion(logits, labels)
-#             running_loss += loss.item() * imgs.size(0)
-
-#             k = k + imgs.size(0)
-
-#             _, pred = torch.max(logits, 1)
-#             predictions += [pred]
-#             ground_truths += [labels.detach().cpu()]
-#             n_images += len(labels)
-#             for j in range(len(img_paths)):
-#                 img_path_list.append(img_paths[j])
-
-#         predictions = torch.cat(predictions).cpu().numpy()
-#         # print("Eval score mean: ", np.mean(scores))
-#         ground_truths = torch.cat(ground_truths).cpu().numpy()
-        
-#         cm = metrics.confusion_matrix(ground_truths, predictions)
-#         acc = metrics.accuracy_score(ground_truths, predictions)
-#         for i in range(predictions.shape[0]):
-#             if predictions[i] != ground_truths[i]:
-#                 old_file_name = os.path.basename(img_path_list[i])
-#                 new_file_name = str(predictions[i]) + "_" + old_file_name
-#                 new_file_path = os.path.join("false_predict", str(fold))
-#                 new_file_path = os.path.join(new_file_path, str(ground_truths[i]))
-#                 new_file_path = os.path.join(new_file_path, new_file_name)
-#                 shutil.copyfile(img_path_list[i], new_file_path)
-#                 counting += 1
-                    
-#         cm_analysis(ground_truths, predictions, ["non nude", "sexy", "nude"], "diagram_images/confusion_matrix_{}.png".format(epoch))
-       
-#     return running_loss/k, acc
