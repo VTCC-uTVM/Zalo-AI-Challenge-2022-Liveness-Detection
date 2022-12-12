@@ -35,4 +35,4 @@ python code/ensemble_multimodel.py
 
 # Visualize grad-cam
 python code/visualize_grad_cam.py 
-[<img alt="alt_text" width="40px" src="VTCC-uTVM/Zalo-AI-Challenge-2022-Liveness-Detection/blob/main/code/results/0/grad_cam_0_38.jpg" />](https://github.com/)
+![framework](code/results/0/grad_cam_0_38.jpg)
