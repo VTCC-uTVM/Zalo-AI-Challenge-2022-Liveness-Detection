@@ -1,7 +1,5 @@
 # Prepare dataset
-Training dataset mount to /code/train
-Public test 2 dataset mount to /code/public_test_2
-Public test 1 dataset mount to /code/public_test
+Training dataset mount to /code/train. Public test 2 dataset mount to /code/public_test_2. Public test 1 dataset mount to /code/public_test
 
 Split videos to 2 folders fake and real
 ``
@@ -33,6 +31,13 @@ CUDA_VISIBLE_DEVICES=0 nohup python code/train_teacher.py --exp exp_40 > nohup_e
 CUDA_VISIBLE_DEVICES=0 nohup python code/train_teacher.py --exp exp_43 > nohup_exp_43.out &
 CUDA_VISIBLE_DEVICES=0 nohup python code/train_teacher.py --exp exp_49 > nohup_exp_49.out &
 ```
+# Experiment result
+
+|Exp|Pub 2| Private|
+|--------|----|--------|
+|Ensemble exp_39, 40, 43, 49, B5, 3TTA, 11 frames|0.00855|
+|Ensemble exp_39, 40, 43, 49, 2TTA, 8 frames|0.019|
+|Ensemble exp_39, 40, 43, 49, 2TTA, 8 frames, fp16|0.02137|0.06373|
 
 # Submission
 Gen submission csv file
