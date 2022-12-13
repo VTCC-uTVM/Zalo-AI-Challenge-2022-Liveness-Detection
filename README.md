@@ -38,11 +38,12 @@ CUDA_VISIBLE_DEVICES=0 nohup python code/train_teacher.py --exp exp_49 > nohup_e
 |Ensemble exp_39, 40, 43, 49, B5, 3TTA, 11 frames|0.00855|
 |Ensemble exp_39, 40, 43, 49, 2TTA, 8 frames|0.019|
 |Ensemble exp_39, 40, 43, 49, 2TTA, 8 frames, fp16|0.02137|0.06373|
-|Exp_39, 3TTA, 11 frames|
-|Exp_40, 3TTA, 11 frames|
-|Exp_43, 3TTA, 11 frames|
-|Exp_49, 3TTA, 11 frames|
-|B5, 3TTA, 11 frames|
+|Exp_39, 3TTA, 7 frames, best eer|0.02778|
+|Exp_40, 3TTA, 11 frames, best acc|0.02991|
+|Exp_40, 3TTA, 11 frames, best eer|0.02381|
+|Exp_43, 3TTA, 11 frames, best acc|0.02381|
+|Exp_49, 3TTA, 11 frames, best acc|0.02778|
+|B5, 3TTA, 11 frames, best acc|0.02564|
 
 # Submission
 Gen submission csv file
