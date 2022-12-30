@@ -49,7 +49,7 @@ targets = None
 # targets = [ClassifierOutputTarget(1)]
 
 # You can also pass aug_smooth=True and eigen_smooth=True, to apply smoothing.
-val_df =  pd.read_csv("grad_cam.csv")
+val_df =  pd.read_csv("data/grad_cam.csv")
 DATA_PATH = "grad_cam"
 test_data = ImageFolder(val_df, DATA_PATH, default_configs, None, "submission")
 test_loader = DataLoader(test_data, batch_size=32, shuffle=False, pin_memory=False, num_workers=8)

@@ -4,12 +4,12 @@ import os
 import mlflow
 # from losses.label_smoothing import LabelSmoothingCrossEntropy
 from timm.loss import LabelSmoothingCrossEntropy, SoftTargetCrossEntropy
-from mixup import mixup, cutmix
+from data_augmentations.mixup import mixup, cutmix
 from optimizer.sam import SAM
 from optimizer.adan import Adan
 from optimizer.ranger21.ranger21 import Ranger21
 from datetime import datetime
-from grid import GridMask
+from data_augmentations.grid import GridMask
 import json
 from sklearn import metrics
 # try:
@@ -31,13 +31,11 @@ import random
 import matplotlib.pyplot as plt
 from PIL import Image
 import torch.nn.functional as F
-#matplotlib inline
-from torch import nn
+
 # for creating validation set
 from torch.optim import lr_scheduler
 
-# for evaluating the model
-from sklearn.metrics import accuracy_score
+
 
 # PyTorch libraries and modules
 from datetime import datetime
@@ -53,12 +51,10 @@ from torch.optim import Adam, SGD
 from tqdm import tqdm
 
 from utils import seed_torch, count_parameters
-from dataset import ImageFolder, BatchSampler, RandomSampler
+from dataset import ImageFolder
 from torch.utils.data import DataLoader
 
-from torch.autograd import Variable
 import torch
-from torchvision.transforms import Compose 
 
 from eval import eval
 import argparse
@@ -362,20 +358,20 @@ if __name__ == '__main__':
     test_loader_list = {}
     for fold in range(n_fold):
         if default_configs["pseudo_label"]:
-            train_df = pd.read_csv("code/train_fold{}.csv".format(fold))
-            pseudo_df = pd.read_csv("code/pseudo_label.csv")
+            train_df = pd.read_csv("code/data/train_fold{}.csv".format(fold))
+            pseudo_df = pd.read_csv("code/data/pseudo_label.csv")
             train_df = pd.concat([train_df, pseudo_df])
         else:
-            train_df = pd.read_csv("code/train_fold{}.csv".format(fold))
+            train_df = pd.read_csv("code/data/train_fold{}.csv".format(fold))
 
-        val_df =  pd.read_csv("code/val_fold{}.csv".format(fold))
+        val_df =  pd.read_csv("code/data/val_fold{}.csv".format(fold))
         train_data_1 = ImageFolder(train_df, DATA_PATH, default_configs, {default_configs["image_size"]: 9}, "train")
         test_data_1 = ImageFolder(val_df, DATA_PATH, default_configs, None, "submission")
         # test_data_2 = ImageFolder(val_df, DATA_PATH, default_configs["image_size"], 11, "test", None)
         if default_configs["batch_size"] <= 2:
             train_loader = DataLoader(train_data_1, batch_size=default_configs["batch_size"], shuffle=True, drop_last=True, pin_memory=True, num_workers=default_configs["num_workers"])
         else:
-            train_loader = DataLoader(train_data_1, batch_size=default_configs["batch_size"], shuffle=True, pin_memory=True, num_workers=default_configs["num_workers"])
+            train_loader = DataLoader(train_data_1, batch_size=default_configs["batch_size"], shuffle=True, drop_last=True, pin_memory=True, num_workers=default_configs["num_workers"])
         if default_configs["batch_size"] <= 2:
             test_loader = DataLoader(test_data_1, batch_size=8, shuffle=False, pin_memory=True, num_workers=default_configs["num_workers"])
         else:

@@ -49,9 +49,9 @@ model_paths = ["weights/{}/0/checkpoint_{}_best{}.pt".format(exp, metric, train_
                 "weights/{}/4/checkpoint_{}_best{}.pt".format(exp, metric, train_type)
 ]
 if pub == "pub_1":
-    val_df =  pd.read_csv("code/public_test.csv")
+    val_df =  pd.read_csv("code/data/public_test.csv")
 elif pub == "pub_2":
-    val_df =  pd.read_csv("code/public_test_2.csv")
+    val_df =  pd.read_csv("code/data/public_test_2.csv")
 DATA_PATH = "public_test"
 test_data = ImageFolder(val_df, DATA_PATH, default_configs, None, "submission")
 test_loader = DataLoader(test_data, batch_size=16, shuffle=False, pin_memory=False, num_workers=8)

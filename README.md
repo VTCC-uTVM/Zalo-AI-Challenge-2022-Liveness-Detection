@@ -49,12 +49,12 @@ CUDA_VISIBLE_DEVICES=0 nohup python code/train_teacher.py --exp exp_49 > nohup_e
 # Submission
 Gen submission csv file
 ```
-python code/submission.py
+python code/submission/submission.py
 ```
 
 Ensemble
 ```
-python code/ensemble_multimodel.py
+python code/submission/ensemble_multimodel.py
 ```
 
 Visualize grad-cam
